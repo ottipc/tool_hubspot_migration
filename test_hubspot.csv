@@ -1,0 +1,4 @@
+Login;Mitglied-Status;Vorname;Familienname;Telefon;Mobil;Fax;E-Mail;Mg.Nr;PLZ;Ort;Anschrift;Geburtstag;Mehrwertsteuer;Kontoinhaber;Kontonummer;Bankleitzahl;Name der Bank;IBAN;BIC;SEPA Mandat vom;SEPA Referenz
+Mustermann;Nichtmitglied;Lukas;Weißer;123456789;98764321;62376357;lw@mcarena.de;5;73614;Schorndorf;Testweg 4;01.01.1990;19%;Max Mustermann;123456;54321;Bank;DEXXXXXXXXX;ABCDEFGH;19.04.2016;DEXXXXXXXXX
+Mustermann;Nichtmitglied;Lukas;Weißer;123456789;98764321;62376357;lw1@mcarena.de;5;73614;Schorndorf;Testweg 4;01.01.1990;19%;Max Mustermann;123456;54321;Bank;DEXXXXXXXXX;ABCDEFGH;19.04.2016;DEXXXXXXXXX
+;;;;;;;;;;;;;;;;;;;;;
