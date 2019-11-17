@@ -156,10 +156,11 @@ class RestClient:
         
      def findCSV(self):
         file_names = []
-        for file in os.listdir("./csvfiles"):
+        csvdir = cfg.appconfig['csvdirectory']
+        for file in os.listdir(csvdir):
             if file.endswith(".csv"):
-                file_names.append(os.path.join("./csvfiles", file))
-                print(os.path.join("./csvfiles", file))
+                file_names.append(os.path.join(csvdir, file))
+                print(os.path.join(csvdir, file))
         return file_names
         
      def sendMail(self):
