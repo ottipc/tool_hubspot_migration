@@ -21,13 +21,73 @@ class RestClient:
         # Note: I didn't need to create a variable in the class definition before doing this.
         #student.gpa = float(4.0)
         return client
-     def create_contact(self, row):
+     
+     def get_code(self):
+        #client = RestClient(url, API_KEY)
+        #client.url = url
+        #client.key = API_KEY
+        print('Get Code ...')
+        
+        endpoint = "https://app.hubspot.com/oauth/authorize"
+        data = {'scope':'contacts','client_id':'{}'.format(cfg.appconfig['client_id']),'redirect_uri':'{}'.format(cfg.appconfig['redirect_uri'])}
+        headers = {}
+        r = requests.get( url = endpoint, data = data, headers = headers )
+        print('Response Get Code .....{}'.format(r.text))
+        print(r.text)
+        #student.major = major
+        # Note: I didn't need to create a variable in the class definition before doing this.
+        #student.gpa = float(4.0)
+        return r
+     
+     
+     
+     def refresh_token(self):
+        #client = RestClient(url, API_KEY)
+        #client.url = url
+        #client.key = API_KEY
+        print('Refresh Token ...')
+        
+        endpoint = "{}token".format(cfg.appconfig['api_oauth_url'])
+        data = {'grant_type':'refresh_token','client_id':'{}'.format(cfg.appconfig['client_id']),'client_secret':'{}'.format(cfg.appconfig['client_secret']),'refresh_token':'{}'.format(cfg.appconfig['refresh_token'])}
+        headers = {'Content-Type':'application/x-www-form-urlencoded','charset':'utf-8'}
+        #print('Endpoint  refresh token ..... : {}'.format(endpoint))
+        r = requests.post( url = endpoint, data = data, headers = headers )
+        #print('Response fresh token.....{}'.format(r.text))
+        resp_dict = json.loads(r.text)
+    #    print('ACCESS token.....{}'.format(resp_dict['access_token']))
+        return resp_dict['access_token'];
+     
+     
+     
+     def get_token(self):
+        #client = RestClient(url, API_KEY)
+        #client.url = url
+        #client.key = API_KEY
+        print('Get Token ...')
+        
+        endpoint = "{}token".format(cfg.appconfig['api_oauth_url'])
+        data = {'grant_type':'authorization_code','client_id':'{}'.format(cfg.appconfig['client_id']),'client_secret':'{}'.format(cfg.appconfig['client_secret']),'redirect_uri':'{}'.format(cfg.appconfig['redirect_uri']),'code':'{}'.format(cfg.appconfig['app_auth_code'])}
+        headers = {'Content-Type':'application/x-www-form-urlencoded','charset':'utf-8'}
+        print('Endpoint  ..... : {}'.format(endpoint))
+        r = requests.post( url = endpoint, data = data, headers = headers )
+        print('Response .....{}'.format(r.text))
+        print(r.text)
+        
+        #student.major = major
+        # Note: I didn't need to create a variable in the class definition before doing this.
+        #student.gpa = float(4.0)
+        return r
+     
+     
+     
+     def create_contact(self, row, access_token):
       try:
         print("try to persist contact in hubspot : {}".format(row[7]))
-        endpoint = "{}contact/createOrUpdate/email/{}/?hapikey={}".format(cfg.appconfig['api_url'], row[7], cfg.appconfig['api_key'])
+        endpoint = "{}contact/createOrUpdate/email/{}".format(cfg.appconfig['api_url'], row[7])
         print("Endpoint : {}".format(endpoint))
         headers = {}
         headers["Content-Type"]="application/json"
+        headers["Authorization"]="Bearer {}".format(access_token)
         
         data = json.dumps({
   "properties": [
