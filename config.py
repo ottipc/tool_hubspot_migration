@@ -1,4 +1,10 @@
 #!/usr/bin/env python
-appconfig = {'csvdirectory': '/home/codi/Entwicklung/tool_hubspot_api/csvfiles/',
+appconfig = {'csvdirectory': '/..../tool_hubspot_api/csvfiles/',
          'api_url': 'https://api.hubapi.com/contacts/v1/',
-         'api_key': '730c761f-9db5-41c3-a391-b981552855bf'}
+         'api_oauth_url': 'https://api.hubapi.com/oauth/v1/',
+         'api_key': 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+         'refresh_token': 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+         'client_id':'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+         'client_secret':'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+         'redirect_uri':'app.hubspot.com',
+         'app_auth_code':'xxxxxxxxxxxxxxxxxxxxxxxxxxx'}
