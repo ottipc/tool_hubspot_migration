@@ -5,6 +5,9 @@ import config as cfg
 client = rest_client.RestClient("","")
 files = client.findCSV()
 print(cfg.appconfig['api_url'])
+access_token = client.refresh_token()
+
+#client.get_token()
 for csvfile in files:
     with open(csvfile) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=';')
@@ -17,7 +20,7 @@ for csvfile in files:
                     line_count += 1
                 else:
                     #print("\t{0} data in the {1} department, and was born in {2}".format(row[0],row[1],row[2]))
-                    client.create_contact(row)            
+                    client.create_contact(row, access_token)  
                     #print('\t{row[0]} works in the {row[1]} department, and was born in {row[2]}.')
                     line_count += 1
         except csv.Error as e:
