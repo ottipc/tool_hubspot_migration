@@ -10,8 +10,8 @@ access_token = client.refresh_token()
 #client.get_token()
 for csvfile in files:
     with open(csvfile) as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=';')
         try:
+            csv_reader = csv.reader(csv_file, delimiter=';')
             line_count = 0
             for row in csv_reader:
                 if line_count == 0:
@@ -23,9 +23,20 @@ for csvfile in files:
                     client.create_contact(row, access_token)  
                     #print('\t{row[0]} works in the {row[1]} department, and was born in {row[2]}.')
                     line_count += 1
-        except csv.Error as e:
-            sys.exit('file {}, line {}: {}'.format(filename, reader.line_num, e))
+        except csv.Error as ce:
+            sys.exit('file {}, line {}: {}'.format(csvfile, reader.line_num, ce))
+            os.rename(csvfile, "{}errorprocessed/{}".format(cfg.appconfig['csvdirectory'],os.path.basename(csvfile)))    
+            # move file to errorprocessed
+            client.sendMailError(csvfile);
+            print(" CSV Error {} : {} ".format(csvfile, ce.args))
+            continue;
+        except Exception as e:
+            print('Exception importing {} : {}'.format(csvfile, str(e)))
+            client.sendMailError(csvfile, str(e));
+            # move file to errorprocessed
+            os.rename(csvfile, "{}/errorprocessed/{}".format(cfg.appconfig['csvdirectory'],os.path.basename(csvfile)))    
+            continue;
         print('Processed {} lines.'.format(line_count))
-# move file to processed
-#os.rename(csvfile, "./csvfiles/processed/{}".format(os.path.basename(csvfile)))    
-    
+        client.sendMailCorrect(csvfile);    
+        # move file to processed
+        os.rename(csvfile, "{}/processed/{}".format(cfg.appconfig['csvdirectory'],os.path.basename(csvfile)))    
