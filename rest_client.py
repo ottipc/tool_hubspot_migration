@@ -82,9 +82,12 @@ class RestClient:
      
      def create_contact(self, row, access_token):
       try:
-        print("try to persist contact in hubspot : {}".format(row[7]))
+        if not row[7]:
+            raise Exception("Email is empty, not able to persist in Hubspot")
+    
+        print("try to persist contact in hubspot : %s" % row[7])
         endpoint = "{}contact/createOrUpdate/email/{}".format(cfg.appconfig['api_url'], row[7])
-        print("Endpoint : {}".format(endpoint))
+        #print("Endpoint : {}".format(endpoint))
         headers = {}
         headers["Content-Type"]="application/json"
         headers["Authorization"]="Bearer {}".format(access_token)
@@ -205,14 +208,16 @@ class RestClient:
     }
   ]
 })      
-        print("Setting Call...")
+        #print("Setting Call...")
         r = requests.post( url = endpoint, data = data, headers = headers )
-        print(r.text)
-        #self.sendMail()
+        #print(r.text)
+        print(r.status_code)
+        if r.status_code==404:
+            raise Exception("Api URL not available : " . endpoint)
+        if r.status_code!=200:
+            raise Exception(r.text)
       except Exception as e:
-         #e = sys.exc_info()[0]
-        print( "<p>Error: %s</p>" % str(e) )
-        
+        raise e
         
      def findCSV(self):
         file_names = []
@@ -223,15 +228,27 @@ class RestClient:
                 print(os.path.join(csvdir, file))
         return file_names
         
-     def sendMail(self):
+     def sendMailCorrect(self, csvfile):
         sendmail_location = "/usr/sbin/sendmail" # sendmail location
         p = os.popen("%s -t" % sendmail_location, "w")
-        p.write("From: %s\n" % "from@somewhere.com")
-        p.write("To: %s\n" % "otti@petitcode.com")
-        p.write("Subject: thesubject\n")
+        p.write("From: %s\n" % cfg.appconfig['email_from'])
+        p.write("To: %s\n" % cfg.appconfig['email_to'])
+        p.write("Subject: CSV imported correctly\n")
         p.write("\n") # blank line separating headers from body
-        p.write("body of the mail")
+        p.write("File imported correctly to Hubspot and moved to processed: {} ".format(csvfile))
         status = p.close()
         if status != 0:
               print("Sendmail exit status", status)
-   
+              
+     def sendMailError(self, csvfile, etext):
+        sendmail_location = "/usr/sbin/sendmail" # sendmail location
+        p = os.popen("%s -t" % sendmail_location, "w")
+        p.write("From: %s\n" % cfg.appconfig['email_from'])
+        p.write("To: %s\n" % cfg.appconfig['email_to'])
+        p.write("Subject: ERROR importing CSV !\n")
+        p.write("\n") # blank line separating headers from body
+        p.write("\nFile NOT imported correctly to Hubspot and moved to erroprocessed: {} ".format(csvfile))
+        p.write("\n\nError: {}".format(etext))
+        status = p.close()
+        if status != 0:
+              print("Sendmail exit status", status)
