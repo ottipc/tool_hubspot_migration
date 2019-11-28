@@ -1,7 +1,7 @@
 #!/bin/bash
-LOCKDIR=/tmp/call_hubspot_api-lock
+LOCKDIR=./log/call_hubspot_api-lock
 THISRUN=`date +%Y%m%d-%H%M`
-LOGFILE=/var/log/call_hubspot_api.log
+LOGFILE=./log/call_hubspot_api.log
 FULLPATH=`readlink -f $0`
 DIRNAME=`dirname $FULLPATH`
 BNAME=`basename $FULLPATH`
