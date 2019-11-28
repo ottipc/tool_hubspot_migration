@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+import datetime
 import csv, sys
 import rest_client
 import os
@@ -25,7 +27,9 @@ for csvfile in files:
                     line_count += 1
         except csv.Error as ce:
             sys.exit('file {}, line {}: {}'.format(csvfile, reader.line_num, ce))
-            os.rename(csvfile, "{}errorprocessed/{}".format(cfg.appconfig['csvdirectory'],os.path.basename(csvfile)))    
+            actual_date = datetime.datetime.now().strftime("%d.%m.%Y%I-%H:%M:%S")
+            csvfilename = os.path.basename(csvfile).replace('.csv','.{}.csv'.format(actual_date))
+            os.rename(csvfile, "{}errorprocessed/{}".format(cfg.appconfig['csvdirectory'],csvfilename))    
             # move file to errorprocessed
             client.sendMailError(csvfile);
             print(" CSV Error {} : {} ".format(csvfile, ce.args))
@@ -34,9 +38,13 @@ for csvfile in files:
             print('Exception importing {} : {}'.format(csvfile, str(e)))
             client.sendMailError(csvfile, str(e));
             # move file to errorprocessed
-            os.rename(csvfile, "{}/errorprocessed/{}".format(cfg.appconfig['csvdirectory'],os.path.basename(csvfile)))    
+            actual_date = datetime.datetime.now().strftime("%d.%m.%Y%I-%H:%M:%S")
+            csvfilename = os.path.basename(csvfile).replace('.csv','.{}.csv'.format(actual_date))
+            os.rename(csvfile, "{}/errorprocessed/{}".format(cfg.appconfig['csvdirectory'],csvfilename))    
             continue;
         print('Processed {} lines.'.format(line_count))
         client.sendMailCorrect(csvfile);    
         # move file to processed
-        os.rename(csvfile, "{}/processed/{}".format(cfg.appconfig['csvdirectory'],os.path.basename(csvfile)))    
+        actual_date = datetime.datetime.now().strftime("%d.%m.%Y%I-%H:%M:%S")
+        csvfilename = os.path.basename(csvfile).replace('.csv','.{}.csv'.format(actual_date))
+        os.rename(csvfile, "{}/processed/{}".format(cfg.appconfig['csvdirectory'],csvfilename))    
