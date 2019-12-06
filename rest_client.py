@@ -78,7 +78,7 @@ class RestClient:
             dateNextBooking = self.convertToTimestamp(row[24], "%d.%m.%Y")
             sepaMandatFrom = self.convertToTimestamp(row[20], "%d.%m.%Y")
             dateOfLastBooking = self.convertToTimestamp(row[22], "%d-%m-%Y")
-            valueLastBooking = ""
+            valueLastBooking = str(row[23])
             #print("dateNextBooking :{}" .format(dateNextBooking))
             #print("Kontaktkategorie :{}" .format(row[24]))
             if valueLastBooking:
