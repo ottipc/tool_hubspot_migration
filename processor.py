@@ -23,7 +23,7 @@ for csvfile in files:
                     print(var)
                     line_count += 1
                 else:
-                    #print("\t{0} data in the {1} department, and was born in {2}".format(row[0],row[1],row[2]))
+                    print("Processing ...")
                     processed = client.create_contact(row, access_token)
                     processedLines.append(processed)
                     print("Processed :  {} ".format(processed))

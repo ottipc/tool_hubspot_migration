@@ -81,9 +81,9 @@ class RestClient:
             valueLastBooking = str(row[23])
             #print("dateNextBooking :{}" .format(dateNextBooking))
             #print("Kontaktkategorie :{}" .format(row[24]))
-            if valueLastBooking:
-                valueLastBooking = re.findall('\d+', str(row[23]))[0]
-            print("VALUE %s" %  valueLastBooking)
+            #if valueLastBooking:
+            #    valueLastBooking = re.findall('\d+', str(row[23]))[0]
+            #print("VALUE %s" %  valueLastBooking)
             data = json.dumps({
                 "properties": [
                     {
@@ -193,6 +193,10 @@ class RestClient:
                     {
                         "property": "zip",
                         "value": "%s" % row[9]
+                    },
+                    {
+                        "property": "datum_der_n_chsten_buchung",
+                        "value": "%s" % dateNextBooking
                     },
                     {
                         "property": "kontaktkategorie",
