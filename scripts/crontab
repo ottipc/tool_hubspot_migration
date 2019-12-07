@@ -1,0 +1,8 @@
+# Crontab fur hbspot api all 15 Minutes
+*/15 * * * * /home/codi/Entwicklung/tool_hubspot_api/log/call_hubspot_api_cron.sh
+# Crontab delte logs after half hear
+0 0 1 */6 * find /home/codi/Entwicklung/tool_hubspot_api/log/* mtime +182 -type f -delete >/dev/null 2>&1
+# Crontab delte logs older than 6 Months
+*/1 * * * * find /home/codi/Entwicklung/tool_hubspot_api/log/* mtime +182 -type f -delete >/dev/null 2>&1
+# Crontab remove logs files weekly
+0 6 * * Tue  /home/codi/Entwicklung/tool_hubspot_api/scripts/movelog.sh >/dev/null 2>&1
