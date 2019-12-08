@@ -11,7 +11,7 @@ LOGGER=$DIRNAME/logger.pl
 
 main() {
         do_lock
-        python3 /var/www/vhosts/mcarena/tool_hubspot_mirgation/processor.py
+        python3 /var/www/vhosts/mcarena/tool_hubspot_migration/processor.py
         rm -rf "${LOCKDIR}"
 }
 
