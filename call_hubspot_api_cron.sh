@@ -1,7 +1,7 @@
 #!/bin/bash
 LOCKDIR=/tmp/call_hubspot_api-lock
 THISRUN=`date +%Y%m%d-%H%M`
-LOGFILE=/var/www/vhsots/mcarena/tool_hubspot_mirgation/log/call_hubspot_api.log
+LOGFILE=/var/www/vhosts/mcarena/tool_hubspot_migration/log/call_hubspot_api.log
 FULLPATH=`readlink -f $0`
 DIRNAME=`dirname $FULLPATH`
 BNAME=`basename $FULLPATH`
@@ -11,7 +11,7 @@ LOGGER=$DIRNAME/logger.pl
 
 main() {
         do_lock
-        python3 /var/www/vhsots/mcarena/tool_hubspot_mirgation/processor.py
+        python3 /var/www/vhosts/mcarena/tool_hubspot_mirgation/processor.py
         rm -rf "${LOCKDIR}"
 }
 
