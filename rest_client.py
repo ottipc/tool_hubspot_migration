@@ -63,6 +63,7 @@ class RestClient:
 
     def create_contact(self, row, access_token):
         try:
+            print("Processing contact  :{}" .format(row[7]))
             if not row[7]:
                 raise Exception(
                     "Email is empty, not able to persist in Hubspot")
