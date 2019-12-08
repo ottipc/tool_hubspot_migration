@@ -21,7 +21,6 @@ class RestClient:
         return client
 
     def get_code(self):
-        print('Get Code ...')
 
         endpoint = "https://app.hubspot.com/oauth/authorize"
         data = {'scope': 'contacts', 'client_id': '{}'.format(
