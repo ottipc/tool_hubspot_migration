@@ -1,7 +1,6 @@
 #!/bin/bash
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin
 export PATH
- 
 
 ###
 ### locking: define $LOCKDIR before calling this function
