@@ -1,0 +1,10 @@
+# Crontab fur hbspot api all 15 Minutes
+*/15 * * * * /var/www/vhosts/mcarena/tool_hubspot_migration/call_hubspot_api_cron.sh
+# Crontab delte logs after half hear
+0 0 1 */6 * find /var/www/vhosts/mcarena/tool_hubspot_migration//log/* mtime +182 -type f -delete >/dev/null 2>&1
+# Crontab delte logs older than 6 Months
+*/1 * * * * find /var/www/vhosts/mcarena/tool_hubspot_migration//log/* mtime +182 -type f -delete >/dev/null 2>&1
+# Crontab remove logs files weekly , Tueday on 6:25
+25 6 * * Tue  /var/www/vhosts/mcarena/tool_hubspot_migration//scripts/movelog.sh >/dev/null 2>&1
+# Crontab remove logs files every 2 minutes , Tueday on 6:25
+*/2 * * * *  /var/www/vhosts/mcarena/tool_hubspot_migration/scripts/movelog.sh >/dev/null 2>&1
