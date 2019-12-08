@@ -1,0 +1,4 @@
+#!/bin/bash
+now=`date +"%m_%d_%Y:%M_S"`
+mv /var/www/vhosts/mcarena/tool_hubspot_migration/log/crontab_hubspot_api.log /ar/www/vhosts/mcarena/tool_hubspot_migration/log/crontab_hubspot_api.$now.log
+mv /var/www/vhosts/mcarena/tool_hubspot_migration//log/call_hubspot_api.log //var/www/vhosts/mcarena/tool_hubspot_migration//log/call_hubspot_api.$now.log
