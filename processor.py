@@ -36,8 +36,8 @@ for csvfile in files:
             csvfilename = os.path.basename(csvfile).replace(
                 '.csv', '.{}.csv'.format(actual_date))
             # move file to errorprocessed
-            #os.rename(
-            #    csvfile, "{}errorprocessed/{}".format(cfg.appconfig['csvdirectory'], csvfilename))
+            os.rename(
+                csvfile, "{}errorprocessed/{}".format(cfg.appconfig['csvdirectory'], csvfilename))
             client.sendMailError(csvfilename, "Error at Importing : {} : Line {}".format(
                 str(ce), line_count + 1), processedLines)
             print(" CSV Error {} : {} ".format(csvfile, ce.args))
@@ -49,16 +49,16 @@ for csvfile in files:
             csvfilename = os.path.basename(csvfile).replace(
                 '.csv', '.{}.csv'.format(actual_date))
             # move file to errorprocessed
-            #os.rename(
-            #    csvfile, "{}/errorprocessed/{}".format(cfg.appconfig['csvdirectory'], csvfilename))
+            os.rename(
+                csvfile, "{}/errorprocessed/{}".format(cfg.appconfig['csvdirectory'], csvfilename))
             client.sendMailError(csvfilename, "Error at Importing : {} : Line {}".format(
                 str(e), line_count + 1), processedLines)
             continue
         print('Processed {} lines.'.format(line_count))
-        actual_date = datetime.datetime.now().strftime("%d.%m.%Y%I-%H:%M:%S")
+        actual_date = datetime.datetime.now().strftime("%d.%m.%Y-%H:%M:%S")
         csvfilename = os.path.basename(csvfile).replace(
             '.csv', '.{}.csv'.format(actual_date))
         # move file to processed
-        #os.rename(
-        #    csvfile, "{}/processed/{}".format(cfg.appconfig['csvdirectory'], csvfilename))
+        os.rename(
+            csvfile, "{}/processed/{}".format(cfg.appconfig['csvdirectory'], csvfilename))
         client.sendMailCorrect(csvfilename, processedLines)
