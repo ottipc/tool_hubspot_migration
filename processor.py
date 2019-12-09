@@ -23,7 +23,7 @@ for csvfile in files:
                     print(var)
                     line_count += 1
                 else:
-                    print("Processing Contact...")
+                    print("Processing ...")
                     processed = client.create_contact(row, access_token)
                     processedLines.append(processed)
                     print("Processed :  {} ".format(processed))
@@ -32,7 +32,7 @@ for csvfile in files:
         except csv.Error as ce:
             print('Exception importing {} : {} in Line : {}'.format(
                 csvfile, str(e), line_count + 1))
-            actual_date = datetime.datetime.now().strftime("%d.%m.%Y%I-%H:%M:%S")
+            actual_date = datetime.datetime.now().strftime("%d.%m.%Y-%H:%M:%S")
             csvfilename = os.path.basename(csvfile).replace(
                 '.csv', '.{}.csv'.format(actual_date))
             # move file to errorprocessed
@@ -45,7 +45,7 @@ for csvfile in files:
         except Exception as e:
             print('Exception importing {} : {} in Line : {}'.format(
                 csvfile, str(e), line_count + 1))
-            actual_date = datetime.datetime.now().strftime("%d.%m.%Y%I-%H:%M:%S")
+            actual_date = datetime.datetime.now().strftime("%d.%m.%Y-%H:%M:%S")
             csvfilename = os.path.basename(csvfile).replace(
                 '.csv', '.{}.csv'.format(actual_date))
             # move file to errorprocessed
