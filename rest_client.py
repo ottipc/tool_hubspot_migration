@@ -105,17 +105,17 @@ class RestClient:
                         "property": "lastname",
                         "value": "%s" % row[3]
                     },
-                    {
-                        "property": "website",
-                        "value": "http://hubspot.com"
-                    },
-                    {
-                        "property": "company",
-                        "value": "HubSpot"
-                    },
+                    #{
+                    #    "property": "website",
+                    #    "value": "http://hubspot.com"
+                    #},
+                    #{
+                    #    "property": "company",
+                    #    "value": "HubSpot"
+                    #},
                     {
                         "property": "phone",
-                        "value": "%s" % row[3]
+                        "value": "%s" % row[4]
                     },
                     {
                         "property": "mobilephone",
@@ -177,10 +177,10 @@ class RestClient:
                         "property": "fax",
                         "value": "%s" % row[6]
                     },
-                    {
-                        "property": "state",
-                        "value": "MA"
-                    },
+                    #{
+                    #    "property": "state",
+                    #    "value": "MA"
+                    #},
                     {
                         "property": "datum_der_letzten_Buchung",
                         "value": "%s" % dateOfLastBooking
